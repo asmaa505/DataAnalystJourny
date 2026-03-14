@@ -10,7 +10,7 @@
 # scrapy version                 Scrapy 2.14.2
 # scrapy startproject + ( project name )
 # cd ( project name ) / spiders
-# scrapy genspider myspider books.toscrape.com
+# 
 
 #? download scrapy shell
 # pip install ipython
@@ -18,8 +18,29 @@
 # scrapy shell
 
 #? Commands
+#* scrapy genspider ( spider name ) ( website url )
 #*  fetch('https://books.toscrape.com/')
 #*  response.css( 'article ' )
 #*  response.css( 'article.product_pod' )
 #*  retriveArticles = response.css( 'article.product_pod' )
 #*  retriveArticles.get()    => retrive only the first item
+#*  len( retriveArticles )
+#*  article1 = retriveArticles[0]
+#*  article1.css( ' h3 a::text ' ).get()       => retrive text
+#*  article1.css( ' h3 a' ).attrib['href']     => retrive URL
+#*  article1.css( ' div.product_price p::text ' ).get()
+#todo  modify on the spider file content
+def parse(self, response):
+    articles = response.css( 'article.product_pod' )
+
+    for article in articles:
+        yield{
+            'name'  : article.css( ' h3 a::text ' ).get(),
+            'price' : article.css( ' div.product_price p ').get(),
+            'URL'   : article.css( ' h3 a ' ).attrib['href']
+        }
+#*  exit
+#*  cd ../
+#*  scrapy crawl myFirstSpider
+#*  scrapy shell  => to open the shell
+#*  response.css( 'li.next a::attr(href)').get()
