@@ -18,7 +18,7 @@
 # scrapy shell
 
 #? Commands
-#* scrapy genspider ( spider name ) ( website url )
+#* scrapy genspider ( spider name ) ( website name )
 #*  fetch('https://books.toscrape.com/')
 #*  response.css( 'article ' )
 #*  response.css( 'article.product_pod' )
